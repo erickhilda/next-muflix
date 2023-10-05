@@ -24,7 +24,6 @@ export default async function Home() {
 
   return (
     <main className="h-full w-full">
-      <Navbar />
       <Suspense fallback={<div>Loading...</div>}>
         <Carousel items={data.movies} title="Popular Movies" />
         <Carousel items={data.series} title="Popular Series" />

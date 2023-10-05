@@ -36,9 +36,7 @@ function Carousel({ items, title }: { items: any[]; title: string }) {
             {items.map((item) => (
               <MediaCard
                 key={item.imdbID}
-                id={item.imdbID}
-                title={item.Title}
-                img={item.Poster}
+                item={item}
               />
             ))}
           </div>

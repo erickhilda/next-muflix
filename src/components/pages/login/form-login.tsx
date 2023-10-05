@@ -51,7 +51,7 @@ function FormLogin() {
   }
 
   return (
-    <form className="flex flex-col gap-4 w-full mt-6" onSubmit={handleSubmit}>
+    <form className="flex flex-col gap-4 w-full mt-6 text-black" onSubmit={handleSubmit}>
       <Input placeholder="Username" name="username" />
       <Input type="password" name="password" placeholder="Password" />
       {error ? <p className="text-red-500">{error}</p> : null}
