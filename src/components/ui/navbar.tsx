@@ -1,8 +1,10 @@
 "use client";
 
+import { useCallback, useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import useDebounce from "@/hooks/useDebounce";
 import * as Cookies from "@/lib/cookies";
 import { Input } from "./input";
 
@@ -10,16 +12,38 @@ function Navbar() {
   const pathname = usePathname();
   const router = useRouter();
 
-  function handleSearch(keyword: string) {
-    const searchParams = new URLSearchParams();
-    searchParams.set("search", keyword);
+  const [search, setSearch] = useState("");
+  const debouncedSearch = useDebounce(search, 500);
 
-    if (keyword) {
-      router.push(`/movies?${searchParams.toString()}`);
-    } else {
-      router.push("/");
+  const handleSearch = useCallback(
+    (keyword: string) => {
+      const searchParams = new URLSearchParams();
+      searchParams.set("search", keyword);
+
+      if (keyword) {
+        if (pathname.includes("movies")) {
+          return;
+        }
+        router.push(`/movies?${searchParams.toString()}`);
+      }
+
+      if (!keyword && pathname === "/movies") {
+        router.push(`/`);
+      }
+    },
+    [pathname, router]
+  );
+
+  useEffect(() => {
+    handleSearch(debouncedSearch);
+  }, [debouncedSearch, handleSearch]);
+
+  useEffect(() => {
+    if (pathname.includes("movies")) {
+      const searchParams = new URLSearchParams(location.search);
+      setSearch(searchParams.get("search") || "");
     }
-  }
+  }, [pathname]);
 
   const username = Cookies.get("user");
 
@@ -49,7 +73,7 @@ function Navbar() {
           <Input
             className="text-black"
             placeholder="Search"
-            onChange={(e) => handleSearch(e.target.value)}
+            onChange={(e) => setSearch(e.target.value)}
           />
           {/* <span>{username ? username : null}</span> */}
         </div>
