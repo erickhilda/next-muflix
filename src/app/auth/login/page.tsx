@@ -1,6 +1,4 @@
 import FormLogin from "@/components/pages/login/form-login";
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import { Metadata } from "next/types";
 
 export const metadata: Metadata = {

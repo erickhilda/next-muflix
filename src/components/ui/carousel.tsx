@@ -46,7 +46,7 @@ function Carousel({ items, title }: { items: any[]; title: string }) {
 
         {/* button to scroll */}
         <button
-          className="absolute h-full flex flex-col top-0 left-0 bg-black/50 items-center justify-center p-3 opacity-0 hover:opacity-100 transition"
+          className="absolute h-full flex flex-col top-0 left-0 bg-black/50 items-center justify-center p-3 opacity-0 hover:opacity-100 transition z-20"
           onClick={scrollLeft}
         >
           <svg
@@ -66,7 +66,7 @@ function Carousel({ items, title }: { items: any[]; title: string }) {
         </button>
 
         <button
-          className="absolute h-full flex flex-col top-0 right-0 bg-black/50 items-center justify-center p-3 opacity-0 hover:opacity-100 transition"
+          className="absolute h-full flex flex-col top-0 right-0 bg-black/50 items-center justify-center p-3 opacity-0 hover:opacity-100 transition z-20"
           onClick={scrollRight}
         >
           <svg
